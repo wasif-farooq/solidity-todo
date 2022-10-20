@@ -1,7 +1,8 @@
 import {TodoList} from "./components/TodoList";
 import {Configuration} from "./components/Configuration";
 import {Layout} from 'antd';
-const {  Content } = Layout;
+
+const {Content} = Layout;
 
 function App() {
     return (

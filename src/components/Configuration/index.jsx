@@ -3,6 +3,7 @@ import {useMetaMask} from "metamask-react";
 import serviceFacoty from '../../services';
 import {useEffect, useState} from "react";
 import {LoadingOutlined} from "@ant-design/icons";
+import Enable from '../../contexts/enable';
 
 export const Configuration = ({ children }) => {
     const {status, connect, account, ethereum} = useMetaMask();
@@ -16,7 +17,6 @@ export const Configuration = ({ children }) => {
     }
 
     useEffect(() => {
-        console.log("status :",status)
         if (
             status === 'connected' &&
             account &&
@@ -56,7 +56,11 @@ export const Configuration = ({ children }) => {
 
     if (status === "connected" && configured) {
         notification.destroy();
-        return <>{children}</>;
+        return (
+            <Enable.Provider value={configured}>
+                <>{children}</>
+            </Enable.Provider>
+        );
     }
 
     return null;

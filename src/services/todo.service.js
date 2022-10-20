@@ -1,8 +1,9 @@
 import {abi} from '../contracts/TodoList.json';
+import constants from "../constants";
 
 export class TodoService {
     constructor() {
-        this.address = process.env.REACT_APP_CONTRACT_ADDRESS;
+        this.address = constants.address.todo
         this.enabled = false;
         this.web3 = null;
         this.contract = null

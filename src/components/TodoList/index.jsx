@@ -1,13 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {Checkbox, List} from "antd";
 import services from '../../services';
+import Enable from '../../contexts/enable';
 
 export const TodoList = () => {
+    const enable = useContext(Enable)
     const [items, setItems] = useState([])
 
     useEffect(() => {
-        services.get('todo').all().then(setItems)
-    }, [])
+        if (enable) {
+            services.get('todo').all().then(setItems)
+        }
+    }, [enable])
 
     return (
         <div className="site-layout-background" style={{ padding: 24, textAlign: 'left' }}>
@@ -17,7 +21,7 @@ export const TodoList = () => {
             renderItem={(item) => (
                 <List.Item>
                     <List.Item.Meta
-                        avatar={<Checkbox value={item.title}/>}
+                        avatar={<Checkbox checked={item.title}/>}
                         title={item.title}
                     />
                 </List.Item>
