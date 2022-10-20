@@ -34,6 +34,7 @@ export const CreateNewTodo = () => {
             name="customized_form_controls"
             layout="inline"
             onFinish={onFinish}
+            size="large"
             initialValues={{
                title: ''
             }}
@@ -43,6 +44,7 @@ export const CreateNewTodo = () => {
                     type="text"
                     value={title}
                     onChange={onTitleChange}
+                    style={{ width: '100%'}}
                 />
             </Form.Item>
             <Form.Item>

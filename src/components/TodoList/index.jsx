@@ -7,9 +7,32 @@ export const TodoList = () => {
     const enable = useContext(Enable)
     const [items, setItems] = useState([])
 
+    const get = () => services.get('todo').all().then(setItems)
+
+    const add = (item) => {
+        console.log("items :", items)
+        setItems([
+            ...items,
+            item
+        ])
+    }
+
+    const onChange = (index) => (e) => {
+        const newItems = [...items];
+        newItems[index].isCompleted = !e.target.defaultChecked;
+        services.get('todo').toggle(newItems[index].id, !e.target.defaultChecked).then(setItems)
+        setItems(newItems)
+    }
+
     useEffect(() => {
         if (enable) {
-            services.get('todo').all().then(setItems)
+            get()
+        }
+    }, [enable])
+
+    useEffect(() => {
+        if (enable) {
+            services.get('todo').onCreate(get)
         }
     }, [enable])
 
@@ -18,10 +41,15 @@ export const TodoList = () => {
             <List
                 itemLayout="horizontal"
                 dataSource={items}
-                renderItem={(item) => (
+                renderItem={(item, idx) => (
                     <List.Item>
                         <List.Item.Meta
-                            avatar={<Checkbox checked={item.title}/>}
+                            avatar={
+                                <Checkbox
+                                    defaultChecked={item.isCompleted}
+                                    onChange={onChange(idx)}
+                                />
+                            }
                             title={item.title}
                         />
                     </List.Item>
