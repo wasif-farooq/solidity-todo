@@ -1,7 +1,12 @@
+import Web3 from "web3";
+
 let instance;
 class ServiceFactory {
 
-    this.services = new Map();
+    constructor() {
+        this.services = new Map();
+        this.web3 = null;
+    }
 
     static getInstance() {
         if (instance) return instance;
@@ -22,9 +27,15 @@ class ServiceFactory {
         return service;
     }
 
-    enable(web3) {
-        for (let [key, value] of this.services) {
-            value.enable(web3);
+    enable(account, provider) {
+        if (!account) throw new Error('Please provide account');
+        if (!provider) throw new Error('Please provide provider');
+
+        this.web3 = new Web3(provider)
+        this.web3.eth.defaultAccount = account;
+
+        for (let [, value] of this.services) {
+            value.enable(this.web3);
         }
     }
 }
