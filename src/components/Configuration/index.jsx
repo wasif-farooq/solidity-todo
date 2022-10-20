@@ -1,11 +1,12 @@
 import { Button, notification, Spin} from 'antd';
 import {useMetaMask} from "metamask-react";
 import serviceFacoty from '../../services';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {LoadingOutlined} from "@ant-design/icons";
 
 export const Configuration = ({ children }) => {
     const {status, connect, account, ethereum} = useMetaMask();
+    const [configured, setConfigured] = useState(false)
 
     const notificationProps = {
         key: 'updatable',
@@ -15,12 +16,13 @@ export const Configuration = ({ children }) => {
     }
 
     useEffect(() => {
+        console.log("status :",status)
         if (
             status === 'connected' &&
             account &&
             ethereum
         ) {
-            serviceFacoty.enable(account, ethereum)
+            serviceFacoty.enable(account, ethereum).then(() => setConfigured(true))
         }
 
         if (status === "initializing") {
@@ -52,7 +54,7 @@ export const Configuration = ({ children }) => {
         }
     }, [status, ethereum, account, connect, notificationProps])
 
-    if (status === "connected") {
+    if (status === "connected" && configured) {
         notification.destroy();
         return <>{children}</>;
     }

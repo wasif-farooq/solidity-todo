@@ -1,4 +1,5 @@
 import Web3 from "web3";
+import {TodoService} from "./todo.service";
 
 let instance;
 class ServiceFactory {
@@ -6,12 +7,17 @@ class ServiceFactory {
     constructor() {
         this.services = new Map();
         this.web3 = null;
+        this.init();
     }
 
     static getInstance() {
         if (instance) return instance;
         instance = new ServiceFactory()
         return instance;
+    }
+
+    init() {
+        this.add('todo', new TodoService())
     }
 
     add(name, value) {
@@ -27,7 +33,7 @@ class ServiceFactory {
         return service;
     }
 
-    enable(account, provider) {
+    async enable(account, provider) {
         if (!account) throw new Error('Please provide account');
         if (!provider) throw new Error('Please provide provider');
 
