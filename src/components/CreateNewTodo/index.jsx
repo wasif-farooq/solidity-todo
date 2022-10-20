@@ -9,8 +9,9 @@ export const CreateNewTodo = () => {
     const [title, setTitle] = useState('');
 
     const onFinish = (values) => {
-        console.log('Received values from form: ', values);
-        services.get('todo').add(values.title)
+        if (enable) {
+            services.get('todo').add(values.title)
+        }
     };
 
     const checkTitle = (_, value) => {
