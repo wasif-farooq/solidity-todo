@@ -14,19 +14,19 @@ export const TodoList = () => {
     }, [enable])
 
     return (
-        <div className="site-layout-background" style={{ padding: 24, textAlign: 'left' }}>
-        <List
-            itemLayout="horizontal"
-            dataSource={items}
-            renderItem={(item) => (
-                <List.Item>
-                    <List.Item.Meta
-                        avatar={<Checkbox checked={item.title}/>}
-                        title={item.title}
-                    />
-                </List.Item>
-            )}
-        />
+        <div className="site-layout-background" style={{padding: 24, textAlign: 'left'}}>
+            <List
+                itemLayout="horizontal"
+                dataSource={items}
+                renderItem={(item) => (
+                    <List.Item>
+                        <List.Item.Meta
+                            avatar={<Checkbox checked={item.title}/>}
+                            title={item.title}
+                        />
+                    </List.Item>
+                )}
+            />
         </div>
     );
 }
