@@ -1,6 +1,7 @@
 import {TodoList} from "./components/TodoList";
 import {Configuration} from "./components/Configuration";
 import {Layout} from 'antd';
+import {CreateNewTodo} from "./components/CreateNewTodo";
 
 const {Content} = Layout;
 
@@ -11,6 +12,7 @@ function App() {
                 <Content style={{margin: '24px 16px 0', overflow: 'initial', width: '500px', textAlign: 'left'}}>
                     <Configuration>
                         <div className="App">
+                            <CreateNewTodo/>
                             <TodoList/>
                         </div>
                     </Configuration>

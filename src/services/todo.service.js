@@ -29,4 +29,15 @@ export class TodoService {
             return [];
         }
     }
+
+    async add(title) {
+        try {
+            const account = await this.web3.eth.getAccounts();
+            const item = await this.contract.methods.add(title).send({from: account[0]});
+            console.log("item :", item)
+        } catch (e) {
+            console.error(e);
+            return [];
+        }
+    }
 }
