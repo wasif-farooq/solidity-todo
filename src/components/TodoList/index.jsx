@@ -45,6 +45,7 @@ export const TodoList = () => {
     },[ethereum, status, account])
 
     return (
+        <div className="site-layout-background" style={{ padding: 24, textAlign: 'left' }}>
         <List
             itemLayout="horizontal"
             dataSource={items}
@@ -57,5 +58,6 @@ export const TodoList = () => {
                 </List.Item>
             )}
         />
+        </div>
     );
 }
