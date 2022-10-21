@@ -4,9 +4,10 @@ import serviceFacoty from '../../services';
 import {useEffect, useState} from "react";
 import {LoadingOutlined} from "@ant-design/icons";
 import Enable from '../../contexts/enable';
+import constants from '../../constants';
 
 export const Configuration = ({ children }) => {
-    const {status, connect, account, ethereum} = useMetaMask();
+    const {status, connect, account, ethereum, chainId} = useMetaMask();
     const [configured, setConfigured] = useState(false)
 
     useEffect(() => {
@@ -21,7 +22,8 @@ export const Configuration = ({ children }) => {
         if (
             status === 'connected' &&
             account &&
-            ethereum
+            ethereum &&
+            chainId === constants.chain
         ) {
             serviceFacoty.enable(account, ethereum).then(() => setConfigured(true))
         }
@@ -53,9 +55,16 @@ export const Configuration = ({ children }) => {
                 description: 'Connecting...'
             });
         }
+
+        if (status === "connected" && chainId === constants.chain) {
+            notification.open({
+                ...notificationProps,
+                description: 'Please select correct chain'
+            });
+        }
     }, [status, ethereum, account, connect])
 
-    if (status === "connected" && configured) {
+    if (status === "connected" && configured && chainId === constants.chain) {
         notification.destroy();
         return (
             <Enable.Provider value={configured}>
