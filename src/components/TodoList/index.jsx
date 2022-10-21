@@ -9,13 +9,6 @@ export const TodoList = () => {
 
     const get = () => services.get('todo').all().then(setItems)
 
-    const add = (item) => {
-        setItems([
-            ...items,
-            item
-        ])
-    }
-
     const onChange = (index) => (e) => {
         const newItems = [...items];
         newItems[index].isCompleted = !e.target.defaultChecked;
