@@ -10,7 +10,6 @@ export const TodoList = () => {
     const get = () => services.get('todo').all().then(setItems)
 
     const add = (item) => {
-        console.log("items :", items)
         setItems([
             ...items,
             item
@@ -20,8 +19,7 @@ export const TodoList = () => {
     const onChange = (index) => (e) => {
         const newItems = [...items];
         newItems[index].isCompleted = !e.target.defaultChecked;
-        services.get('todo').toggle(newItems[index].id, !e.target.defaultChecked).then(setItems)
-        setItems(newItems)
+        services.get('todo').toggle(newItems[index].id, !e.target.defaultChecked).then(get)
     }
 
     useEffect(() => {

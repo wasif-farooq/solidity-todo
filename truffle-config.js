@@ -42,7 +42,7 @@
  */
 
 // require('dotenv').config();
- const { MNEMONIC, REACT_APP_INFURA_URL } = process.env;
+ const { REACT_APP_MNEMONIC, REACT_APP_INFURA_URL } = process.env;
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
@@ -64,7 +64,7 @@ module.exports = {
             network_id: "*",       // Any network (default: none)
         },
          goerli: {
-           provider: () => new HDWalletProvider(MNEMONIC, REACT_APP_INFURA_URL),
+           provider: () => new HDWalletProvider(REACT_APP_MNEMONIC, REACT_APP_INFURA_URL),
            network_id: 5,       // Goerli's id
            confirmations: 2,    // # of confirmations to wait between deployments. (default: 0)
            timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
