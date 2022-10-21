@@ -9,14 +9,15 @@ export const Configuration = ({ children }) => {
     const {status, connect, account, ethereum} = useMetaMask();
     const [configured, setConfigured] = useState(false)
 
-    const notificationProps = {
-        key: 'updatable',
-        placement: 'bottomLeft',
-        duration: null,
-        closeIcon: () => null
-    }
-
     useEffect(() => {
+
+        const notificationProps = {
+            key: 'updatable',
+            placement: 'bottomLeft',
+            duration: null,
+            closeIcon: () => null
+        }
+
         if (
             status === 'connected' &&
             account &&
@@ -52,7 +53,7 @@ export const Configuration = ({ children }) => {
                 description: 'Connecting...'
             });
         }
-    }, [status, ethereum, account, connect, notificationProps])
+    }, [status, ethereum, account, connect])
 
     if (status === "connected" && configured) {
         notification.destroy();
