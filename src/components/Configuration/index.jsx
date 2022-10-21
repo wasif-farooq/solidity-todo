@@ -62,7 +62,7 @@ export const Configuration = ({ children }) => {
                 description: 'Please select correct chain'
             });
         }
-    }, [status, ethereum, account, connect])
+    }, [status, ethereum, account, connect, chainId])
 
     if (status === "connected" && configured && chainId === constants.chain) {
         notification.destroy();
